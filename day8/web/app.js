@@ -8,6 +8,12 @@ const cellParams = { width: 10, height:10, row: 28, col: 28 };
 const width = cellParams.col * cellParams.width;
 const height = cellParams.row * cellParams.height;
 
+// Random
+function random() {
+    const idx = Math.floor(Math.random() * images.length);
+    image = images[idx];
+    update();
+}
 
 // Update
 function update(){
@@ -16,14 +22,40 @@ function update(){
     .attr('fill', d => colorScaler(d) );
 }
 
+
+
 // Draw events
+const brash = [
+    // dx, dy, value
+    [-1, -1,  0],  [-1,  0,  90],  [-1,  1,  0],  
+    [ 0, -1, 90],  [ 0,  0, 180],  [ 0,  1, 90],  
+    [ 1, -1,  0],  [ 1,  0,  90],  [ 1,  1,  0],  
+]
+
+function getIndex(row, col) {
+    var idx = row * cellParams.row + col;
+    const [idxMin, idxMax] = [0, cellParams.row * cellParams.col - 1]
+    if( idx<idxMin || idx>idxMax) {
+        return null;
+    }
+    return idx
+}
+
 function mousemove(event, d){
     let [x, y] = d3.pointer(event);
     var row = Math.floor(y / cellParams.height);
     var col = Math.floor(x / cellParams.width);
-    var idx = row * cellParams.row + col;
 
-    image[idx] =  Math.min(image[idx]+90, 255);
+    brash.forEach(
+        ([dx, dy, value]) => {
+            var r = row + dx;
+            var c = col + dy;
+            var idx = getIndex(r, c);
+            if (idx !== null) {
+                image[idx] =  Math.min(image[idx]+value, 255);
+            }
+        });
+
     update();
 }
 
@@ -93,4 +125,5 @@ svg.append('rect')
 // Drawing
 d3.select('.image-canvas').on('mousedown', mousedown);
 d3.select('.button-reset').on('click', reset);
+d3.select('.button-random').on('click', random);
 d3.select('.button-detect').on('click', detect);
