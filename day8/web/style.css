@@ -1,0 +1,45 @@
+body {
+  display: flex;
+}
+
+body,
+text {
+  font-family: 'Avenir', sans-serif;
+}
+
+button {
+    outline: none;
+    color: #555;
+    border-color: #eee;
+    background: #fefefe;
+    padding: 3px 10px;
+    font-family: Avenir;
+    transition: all 200ms;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  border: 1px solid #ccc;
+  width: 250px;
+}
+
+.result-title {
+  background: #f0f0f0;
+  color: #777;
+  padding: 0.5rem 1rem;
+  /* text-align: right; */
+  font-weight: bold;
+}
+
+.result-body {
+  padding: 0.5rem;
+  color: #333;
+}

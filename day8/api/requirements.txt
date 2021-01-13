@@ -1,0 +1,3 @@
+flask-restx
+sklearn
+flask-cors
